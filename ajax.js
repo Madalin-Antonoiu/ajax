@@ -5,11 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch("https://api.exchangeratesapi.io/latest?base=USD")
         .then(response =>  response.json()) // return in one line
         .then(data => {
-            const currency = document.querySelector("#currency").value;
+            const currency = document.querySelector("#currency").value.toUpperCase();
             const rate = data.rates[currency];
             const result = document.querySelector("#result");
             rate ? result.innerHTML = `1 USD is equal to ${rate.toFixed(3)} ${currency}` : result.innerHTML = `Invalid currency.`
-            
+        })
+        .catch(error => {
+            console.error(error)
         })
 
         return false; // we dont submit to other page, we want to run locally
